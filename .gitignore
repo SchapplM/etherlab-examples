@@ -1,0 +1,16 @@
+# Allgemeine Dateien
+*~
+Thumbs.db
+# Temporäre Dateien von Apple
+*._*
+# Matlab-Dateien
+*.asv
+# Simulink-Dateien
+*_etl_hrt
+slprj
+*.mdl.r*
+*.mat
+*.mex*
+*.slxc
+*.slx
+*.autosave
