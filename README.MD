@@ -16,7 +16,7 @@ Voraussetzungen:
 Moritz Schappler, moritz.schappler@imes.uni-hannover.de, 2020-03  
 (C) Institut für Mechatronische Systeme, Leibniz Universität Hannover
 
-## Minimal-Beispiel für External Mode
+## Minimal-Beispiel für External Mode <a name="bsp_extmode"></a>
 
 Dieses Beispiel testet nur den External Mode. Es wird das etherlab-Target verwendet, aber ohne EtherCAT-Blöcke. Damit wird geprüft, ob alles korrekt installiert und konfiguriert ist.
 
@@ -47,3 +47,35 @@ Vorgehensweise:
 * Wenn es funktioniert hat, sind jetzt im Ordner results mat-Dateien (measurement_data_0.mat, ...) gespeichert worden
 * Skript extmode_minimal_postprocess.m ausführen
   * Darin ist ein Beispiel-Code um die Messdaten nachzuverarbeiten
+
+## Ixxat ETCio 100 <a name="bsp_ixxat"></a>
+
+Dieses Beispiel liest das EtherCAT-Slave Modul [Ixxat ETCio 100](https://www.ixxat.com/de/produkte/industrie-produkte/io-module/etcio-100) aus.
+Das Modul sollte angeschlossen sein, damit Daten ausgegeben werden können.
+Falls das Gerät nicht angeschlossen ist, kann nur geprüft werden, ob die EtherCAT-Blöcke in Simulink richtig mit kompiliert werden.
+
+Siehe auch: BA Lucas Jürgens "Implementation and Evaluation of a Prosthesis Control Unit on a mobile ARM-based Computing Platform" (Institut für Regelungstechnik, 2017, Betreuer: Moritz Schappler)
+
+Ordner: `ixxat`  
+Vorgehensweise:
+* Ixxat-Modul anschließen (für EtherCAT vorgesehene zweite Netzwerkkarte des Echtzeitrechners).
+* Eventuell Test-Signale an die Eingänge des Moduls anschließen und Digital-Speicheroszilloskop an die Ausgänge anschließen.
+* Simulink-Modell `ETCio100_example.mdl` wie [im ersten Beispiel](#bsp_extmode) beschrieben öffnen, konfigurieren, kompilieren, starten, in external Mode verbinden, Scope anschauen.
+
+Das Modell muss im Ordner `ixxat` geladen werden.
+Die Datei `etcio100_slave.m` enthält die Konfiguration für den EtherCAT-Block im Modell. Die Slave-Konfiguration wird aus der xml-Datei automatisch erzeugt. TODO: Befehle dafür hier beispielhaft einfügen.
+
+## NI-Beispiel <a name="bsp_ni"></a>
+
+Dieses Beispiel liest ein NI DAQ-Chassis aus. Die Konfiguration ist umfangreicher als für das alleinstehende ETCio-Modul des [vorherigen Beispiels](#bsp_ixxat).
+
+Ordner: `ixxat`  
+
+Vorausgesetzte Hardware:
+* NI Chassis 9144 (8 Steckplätze für DA-/AD Wandler, ein EtherCAT Anschluss)
+* NI 9401 (Digital I/O Modul) im ersten Steckplatz
+
+Vorgehensweise:
+* Modell `NI9144_NI9401_example.mdl`. Ansonsten alle Schritte wie oben.
+
+
