@@ -69,7 +69,7 @@ Die Datei `etcio100_slave.m` enthält die Konfiguration für den EtherCAT-Block 
 
 Dieses Beispiel liest ein NI DAQ-Chassis aus. Die Konfiguration ist umfangreicher als für das alleinstehende ETCio-Modul des [vorherigen Beispiels](#bsp_ixxat).
 
-Ordner: `ixxat`  
+Ordner: `ni`  
 
 Vorausgesetzte Hardware:
 * NI Chassis 9144 (8 Steckplätze für DA-/AD Wandler, ein EtherCAT Anschluss)
