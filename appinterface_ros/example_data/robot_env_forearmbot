@@ -1,0 +1,27 @@
+# Einfaches zweiachsiges System
+# Prothese 2 DOF
+
+robot_name := "forearmbot":
+
+NJ := 2:
+NQJ := 2:
+
+qoffset := Matrix(2,1,[-(1/2)*Pi, 0]):
+alpha := Matrix(2,1,[-(1/2)*Pi, -(1/2)*Pi]):
+d := Matrix(2,1,[ 0, d2]):
+a := Matrix(2,1,[0, 0]):
+v := Matrix(2,1,[0, 1]):
+b := Matrix(2,1,[0, 0]):
+beta := Matrix(2,1,[0, 0]):
+theta := qJ_t+qoffset:
+
+# Tischaufbau: Schwerkraft in nur eine Richtung
+g_world := <0;0;g3>:
+
+# Setze Massen (Basis masselos. Ist aber sowieso egal).
+user_M := <0;M1;M2>:
+# Setze Schwerpunkt (nur auf Segment)
+user_CoM := <<0;0;0> | <SX1;0;0> | <0;0;0>>:
+# Setze Trägheitsmomente: Reihenfolge: XX;XY,XZ,YY,YZ,ZZ
+# Annahme: Dünner Stab (in x-Richtung des Körper-KS). Dann Kugel für zweites Segment am Ende
+user_inertia := <<0;0;0;0;0;0>| <0;0;0;YYC1;0;ZZC1>| <XXC2;0;0;YYC2;0;ZZC2>>:

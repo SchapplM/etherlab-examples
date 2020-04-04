@@ -1,0 +1,6 @@
+uint8 state
+uint8 OFF=0
+uint8 STANDBY=1
+uint8 GRAVCOM=2
+uint8 TRA_VELOCITY=3
+uint8 TRA_POSITION=4
