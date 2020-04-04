@@ -1,16 +1,15 @@
 # Beispiele für EtherLab mit External Mode
 
-Dieses Repo enthält Simulink-Modelle und Matlab-Code die die Benutzung von EtherLab mit External Mode Patch (IRT-Version) zeigen.
+Dieses Repo enthält Simulink-Modelle und Matlab-Code die die Benutzung von EtherLab mit External-Mode-Patch (IRT-Version von Lucas Jürgens) zeigen.
 Die Beispiele sind prinzipiell auch für die offizielle EtherLab-Version mit PDServ geeignet, allerdings funktioniert die Datenaufnahme im External Mode dabei nicht.
 
 Voraussetzungen:
 * Matlab R2018b (damit getestet, letzte bekannte lauffähige Version)
-* [IMES Matlab Toolbox (interner Link)](https://gitlab.projekt.uni-hannover.de/imes-material/matlab-toolbox) bzw. [externer Link](https://github.com/SchapplM/matlab_toolbox)
-* Echtzeitrechner mit EtherLab (siehe Anleitungen rt.md und ethercat.md aus Repo [Linux-Tools](https://gitlab.projekt.uni-hannover.de/imes-material/linux-tools))
-* Installation von EtherLab auf Entwicklungsrechner (siehe ethercat.md). Das sollte der Rechner sein, auf dem die Beispiele ausprobiert werden. Unter Windows werden sie so nicht ohne weiteres funktionieren (ist aber prinzipiell möglich, mit einiger Nacharbeit).
-  * Der Echtzeitrechner ist in der SSH-Konfiguration eingestellt: `ssh irtpc077_ec` entspricht `ssh ec@130.75.135.77`. Die IP muss natürlich an den verwendeten Echtzeitrechner angepasst werden.
+* Echtzeitrechner mit EtherCAT. Siehe Anleitungen [SETUP_RTPC.MD](SETUP_RTPC.MD) und [SETUP_ETHERCAT.MD](SETUP_ETHERCAT.MD).
+* Installation von EtherLab auf Entwicklungsrechner [SETUP_ETHERCAT.MD](SETUP_ETHERCAT.MD). Das sollte der Rechner sein, auf dem die Beispiele ausprobiert werden. Unter Windows werden sie so nicht ohne weiteres funktionieren (ist aber prinzipiell möglich, mit einiger Nacharbeit).
+  * Der Echtzeitrechner ("RTPC") ist in der SSH-Konfiguration `~/.ssh/config` des Entwicklungsrechners ("DEVPC") eingestellt: Der Befehl `ssh RTPC_ec` entspricht `ssh ec@10.144.130.83`. Die IP muss natürlich an den verwendeten Echtzeitrechner angepasst werden.
   * Es sollte ein Ordner für die Echtzeit-Modelle erstellt werden:  
-    `ssh irtpc077_ec` (auf Entwicklungsrechner)  
+    `ssh RTPC_ec` (auf Entwicklungsrechner)  
     `mkdir ~/rtmdl` (auf Prozessrechner, über SSH-Fenster)
 
 Moritz Schappler, moritz.schappler@imes.uni-hannover.de, 2020-03  
@@ -27,9 +26,9 @@ Vorgehensweise:
   * Bei Erfolg ist eine neue Datei `extmode_minimal` (ohne Endung) im Modellordner entstanden
 * Modell auf Echtzeitrechner kopieren:
   * Konsole im Ordner öffnen
-  * `scp extmode_minimal irtpc077_ec:~/rtmdl`
+  * `scp extmode_minimal RTPC_ec:~/rtmdl`
 * Modell auf Echtzeitrechner ausführen
-  * `ssh irtpc077_ec` (auf Entwicklungsrechner)
+  * `ssh RTPC_ec` (auf Entwicklungsrechner)
   * `cd ~/rtmdl`
   * `./extmode_minimal`  
     Ausgabe, wenn es funktioniert:
@@ -47,6 +46,7 @@ Vorgehensweise:
 * Wenn es funktioniert hat, sind jetzt im Ordner results mat-Dateien (measurement_data_0.mat, ...) gespeichert worden
 * Skript extmode_minimal_postprocess.m ausführen
   * Darin ist ein Beispiel-Code um die Messdaten nachzuverarbeiten
+  * Voraussetzung: IMES Matlab Toolbox: [(interner Link)](https://gitlab.projekt.uni-hannover.de/imes-material/matlab-toolbox) bzw. [externer Link](https://github.com/SchapplM/matlab_toolbox).
 
 ## Ixxat ETCio 100 <a name="bsp_ixxat"></a>
 
@@ -393,7 +393,7 @@ Vorbereitung des Entwicklungsrechners: Hostnamen des Echtzeitrechners bekanntmac
 
 ```
 sudo nano /etc/hosts
-10.144.130.83   imessmartrtpc1 # Neuer Eintrag mit IP und Hostnamen des Echtzeitrechners, falls abweichend
+10.144.130.83   RTPC # Neuer Eintrag mit IP und Hostnamen des Echtzeitrechners, falls abweichend
 ```
 
 Dann wird der ROS-Workspace mit folgendem Befehl kompiliert:
@@ -405,7 +405,7 @@ build.sh
 Hierfür sind keine zusätzlichen Pfad-Initialisierungen (source ...) notwendig.
 Der dadurch erzeugte Ordner "install" enthält alle ausführbaren Dateien der ROS-Packages. Ein Kopieren des Quelltextes auf den Echtzeitrechner und dortiges kompilieren ist nicht notwendig.
 Die ausführbaren Dateien werden auf den Echtzeitrechner kopiert.
-Das Kopierskript "sync.sh" muss vorher an den Zielrechner angepasst werden (Anpassen des SSH-Verbindungsnamens "imessmartrtpc1_ec" an den in der ~/.ssh/config eingestellten).
+Das Kopierskript "sync.sh" muss vorher an den Zielrechner angepasst werden (Anpassen des SSH-Verbindungsnamens "RTPC_ec" an den in der ~/.ssh/config eingestellten).
 
 ```
 sync.sh
@@ -444,6 +444,62 @@ Dafür wird `build.sh` und `sync.sh` neu ausgeführt.
 Vorher müssen die laufenden Programme mit `tmux kill-session -t app` oder durch Beenden der einzelnen Tasks in der tmux-Konsole geschlossen werden.
 Es reicht teilweise aus, nur die Programme neu zu starten, die auch neu kompiliert wurden.
 
+# Eigene Modelle erstellen
+
+Eigene Beispiele können prinzipiell mit den vorgestellten Minimalbeispielen als Vorlage erstellt werden.
+
+## EtherCAT-Konfiguration auslesen
+
+Zunächst sollte die aktuelle EtherCAT-Konfiguration geprüft werden. Für die Diagnose-Befehle sollten ähnliche Ausgaben erscheinen. Die folgenden Befehle werden auf dem Echtzeitrechner (z.B. in einer SSH-Konsole) ausgeführt.
+
+Funktionalität des Masters:
+
+```
+$ /etc/init.d/ethercat status
+Checking for EtherCAT master 1.5.2 
+Master0  running
+```
+
+Status des Masters:
+```
+$ /opt/etherlab/bin/ethercat master
+Master0
+  Phase: Idle
+  Active: no
+  Slaves: 6
+  Ethernet devices:
+    Main: 00:02:b3:8d:c1:43 (attached)
+      Link: UP
+      Tx frames:   95418
+      Tx bytes:    6021048
+      Rx frames:   95414
+      ....
+  ...
+```
+
+Status der Slaves (stark abhängig von den eingesetzten Slave-Modulen)
+
+```
+$ /opt/etherlab/bin/ethercat slaves
+0  0:0  PREOP  +  EK1100 EtherCAT Coupler (2A E-Bus)
+1  0:1  PREOP  +  EL4004 4K. Ana. Ausgang 0-10V, 12bit
+...
+```
+
+Anschließend sollte die Slave-Konfiguration ausgelesen werden
+
+```
+/opt/etherlab/bin/ethercat pdos --skin etherlab > ~/pdos_etherlab.m
+```
+
+Diese Konfiguration sollte auf den Entwicklungsrechner kopiert werden: `scp RTPC_ec:~/pdos_etherlab.m .` (auf dem Entwicklungsrechner ausführen).
+
+## Modell konfigurieren
+
+In der Matlab-Datei befindet sich der Code für die einzelnen Slave-Module.
+Dieser Code sollte in Matlab-Funktionen eingefügt werden, wie z.B. die Datei [etcio100_slave.m](ixxat/etcio100_slave.m)  im [Ixxat-Beispiel](#bsp_ixxat).
+Diese Funktion konfiguriert dann den Block "generic slave" aus der Etherlab-Simulink-Bibliothek.
+Anschließend muss das Simulink-Modell noch entsprechend dem Einsatzzweck weiter ausgearbeitet werden. Die Konfiguration des Modells und mögliche Fehlerbehebungen ist teilweise in [SETUP_ETHERCAT.MD](SETUP_ETHERCAT.MD) beschrieben.
 
 # Quellen <a name="quellen"></a> 
 
