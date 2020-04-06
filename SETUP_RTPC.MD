@@ -2,7 +2,15 @@
 
 Im Folgenden wird beschrieben, wie ein Linux-Echtzeit-PC aufgesetzt wird.
 
-Syntax: 
+## Autoren und Förderung
+
+Diese Anleitung ist am Institut für Regelungstechnik, Leibniz Universität Hannover unter Mitarbeit von Johannes Kühn, Alexander Tödtheide, Lars Johannsmeier und Moritz Schappler entstanden (2015 bis 2017).
+Die Autoren erhielten Förderung durch die Europäische Union (7. Forschungsrahmenprogramm Horizon 2020, Förder-Nr. 688857, "SoftPro") und das Bundesministerium für Bildung und Forschung (Förder-Nr. 16SV6175, "3. Arm").
+
+(C) Institut für Regelungstechnik, Leibniz Universität Hannover
+
+## Syntax
+
 * Befehle auf Entwicklungsrechner (§)
 * Normale Befehle auf Echtzeitrechner ($)
 * Root-Befehle auf Echtzeitrechner (#)

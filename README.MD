@@ -1,12 +1,12 @@
 # Beispiele für EtherLab mit External Mode
 
-Dieses Repo enthält Simulink-Modelle und Matlab-Code die die Benutzung von EtherLab mit External-Mode-Patch (IRT-Version von Lucas Jürgens) zeigen.
-Die Beispiele sind prinzipiell auch für die offizielle EtherLab-Version mit PDServ geeignet, allerdings funktioniert die Datenaufnahme im External Mode dabei nicht.
+Dieses Repo enthält Simulink-Modelle und Matlab-Code die die Benutzung von EtherLab mit [External-Mode-Patch](https://github.com/SchapplM/etherlab-code-extmodepatch) (IRT-Version von Lucas Jürgens) zeigen.
+Die Beispiele sind prinzipiell auch für die [offizielle EtherLab-Version](https://www.etherlab.org/de/etherlab-rtw/index.php) mit PDServ geeignet, allerdings funktioniert die Datenaufnahme im External Mode dabei nicht.
 
 Voraussetzungen:
 * Matlab R2018b (damit getestet, letzte bekannte lauffähige Version)
 * Echtzeitrechner mit EtherCAT. Siehe Anleitungen [SETUP_RTPC.MD](SETUP_RTPC.MD) und [SETUP_ETHERCAT.MD](SETUP_ETHERCAT.MD).
-* Installation von EtherLab auf Entwicklungsrechner [SETUP_ETHERCAT.MD](SETUP_ETHERCAT.MD). Das sollte der Rechner sein, auf dem die Beispiele ausprobiert werden. Unter Windows werden sie so nicht ohne weiteres funktionieren (ist aber prinzipiell möglich, mit einiger Nacharbeit).
+* Installation von EtherLab auf Entwicklungsrechner aus [SETUP_ETHERCAT.MD](SETUP_ETHERCAT.MD). Das sollte der Rechner sein, auf dem die Beispiele ausprobiert werden. Unter Windows werden sie so nicht ohne weiteres funktionieren (ist aber prinzipiell möglich, mit einiger Nacharbeit).
   * Der Echtzeitrechner ("RTPC") ist in der SSH-Konfiguration `~/.ssh/config` des Entwicklungsrechners ("DEVPC") eingestellt: Der Befehl `ssh RTPC_ec` entspricht `ssh ec@10.144.130.83`. Die IP muss natürlich an den verwendeten Echtzeitrechner angepasst werden.
   * Es sollte ein Ordner für die Echtzeit-Modelle erstellt werden:  
     `ssh RTPC_ec` (auf Entwicklungsrechner)  
@@ -501,7 +501,13 @@ Dieser Code sollte in Matlab-Funktionen eingefügt werden, wie z.B. die Datei [e
 Diese Funktion konfiguriert dann den Block "generic slave" aus der Etherlab-Simulink-Bibliothek.
 Anschließend muss das Simulink-Modell noch entsprechend dem Einsatzzweck weiter ausgearbeitet werden. Die Konfiguration des Modells und mögliche Fehlerbehebungen ist teilweise in [SETUP_ETHERCAT.MD](SETUP_ETHERCAT.MD) beschrieben.
 
+# Förderhinweis
+
+Die Beispiele für die Echtzeit-Schnittstelle sind in einem Projekt entstanden, das Förderung durch die Europäische Union (7. Forschungsrahmenprogramm Horizon 2020, Förder-Nr. 688857, "SoftPro") und das Bundesministerium für Bildung und Forschung (Förder-Nr. 16SV6175, "3. Arm") erhielt.
+
 # Quellen <a name="quellen"></a> 
 
 * Bachelorarbeit von Lucas Jürgens. Durchgeführt 2017 am Institut für Regelungstechnik, Leibniz Universität Hannover. Betreuer: Moritz Schappler. Titel der Arbeit: "Implementation and Evaluation of a Prosthesis Control Unit on a mobile ARM-based Computing Platform"
-* [Projekt SoftPro](https://softpro.eu/). Gefördert durch das 7. EU Forschungsrahmenprogramm (Horizon 2020). Bearbeitung am Institut für Regelungstechnik (LUH) 2016-2018 u.a. durch Johannes Kühn und Moritz Schappler (bezogen auf Echtzeit-Regelung). Ziel: Entwicklung einer intelligenten Unterarm-Prothese.
+* [Projekt SoftPro](https://softpro.eu/). Gefördert durch das 7. EU Forschungsrahmenprogramm (Horizon 2020). Bearbeitung am Institut für Regelungstechnik (LUH) 2016-2018 u.a. durch Johannes Kühn, Lars Johannsmeier und Moritz Schappler (bezogen auf Echtzeit-Regelung).
+  * Johannes Kühn, Johannes Ringwald, Moritz Schappler, Lars Johannsmeier and Sami Haddadin: "Towards Semi-Autonomous and Soft-Robotics Enabled Upper-Limb Exoprosthetics: First Concepts and Robot-Based Emulation Prototype", 2019 International Conference on Robotics and Automation (ICRA)
+

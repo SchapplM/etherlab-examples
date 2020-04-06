@@ -10,6 +10,13 @@ Es wird davon ausgegangen, dass der Echtzeit-PC entsprechend der Anleitung in [S
 Wird derselbe PC als EtherCAT-Master und als Entwickler-PC benutzt, müssen die Schritte für den [Echtzeit-PC](#rtpc) und den [Entwickler-PC](#entwpc) durchgeführt werden.
 Die Pfade müssen dann etwas angepasst werden.
 
+## Autoren und Förderung
+
+Diese Anleitung ist am Institut für Regelungstechnik, Leibniz Universität Hannover unter Mitarbeit von Johannes Kühn, Alexander Tödtheide, Lars Johannsmeier und Moritz Schappler entstanden (2015 bis 2017).
+Die Autoren erhielten Förderung durch die Europäische Union (7. Forschungsrahmenprogramm Horizon 2020, Förder-Nr. 688857, "SoftPro") und das Bundesministerium für Bildung und Forschung (Förder-Nr. 16SV6175, "3. Arm").
+
+(C) Institut für Regelungstechnik, Leibniz Universität Hannover
+
 ## Inhalt
 
 * [Echtzeit-PC](#rtpc)
@@ -169,7 +176,7 @@ Quellen:
 Installation von Etherlab-Code
 Alternative 1: IRT-Version:
 
-    git clone git@irtfs.irt.uni-hannover.de:software/etherlab-code
+    git clone https://github.com/SchapplM/etherlab-code-extmodepatch etherlab-code
 
 Alternative 2: Original-Version:
 
