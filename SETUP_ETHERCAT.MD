@@ -33,7 +33,7 @@ Die Autoren erhielten Förderung durch die Europäische Union (7. Forschungsrahm
 Master-Code vorbereiten (Auf Entwickler-PC)  <a name="etherlabmastercode"></a>. Vorher: In geeigneten Ordner wechseln. Z.B. durch  
 `mkdir -p ~/EtherCAT && cd ~/EtherCAT`
     
-    hg clone http://hg.code.sf.net/p/etherlabmaster/code etherlabmaster-code
+    git clone https://gitlab.com/etherlab.org/ethercat.git etherlabmaster-code
     cd etherlabmaster-code
     hg update stable-1.5
     
@@ -141,7 +141,7 @@ Quelle:
 
 Herunterladen (vorher in geeigneten Ordner wechseln)
 
-    hg clone http://hg.code.sf.net/p/pdserv/code pdserv-code
+    git clone https://gitlab.com/etherlab.org/pdserv.git pdserv-code
 
 PDServ-Code per SSH auf Rechner kopieren
 
@@ -171,16 +171,17 @@ Installation (auf Echtzeit-PC nach /opt/etherlab)
 Wenn statt Echtzeit-/ und Entwickler-PC nur ein PC exisitiert, auf dem EtherCAT und Matlab/Simulink läuft, muss der folgende Code entsprechend ausgeführt werden.  
 Quellen:
 
-* README-Datei im Repo etherlab-code
+* README-Datei im Repo [etherlab-code](https://gitlab.com/luh_imes/etherlab-extmodepatch)
 
 Installation von Etherlab-Code
 Alternative 1: IRT-Version:
 
-    git clone https://github.com/SchapplM/etherlab-code-extmodepatch etherlab-code
+    git clone https://gitlab.com/luh_imes/etherlab-extmodepatch.git etherlab-code -b dev
 
+Die "IRT-Version" entspricht einer EtherLab-Version mit Stand von Januar 2018 mit Patch für External Mode. Diese Version ist kompatibel mit Matlab bis max. Version 2018b. Eine Aktualisierung für neuere Matlab-Versionen steht noch aus.  
 Alternative 2: Original-Version:
 
-    hg clone http://hg.code.sf.net/p/etherlab/code etherlab-code
+    git clone git@gitlab.com:etherlab.org/etherlab.git etherlab-code
 
 Abhängigkeit zum Kompilieren, falls nicht schon installiert:
 
@@ -275,7 +276,7 @@ Abhängigkeiten installieren
 
 Herunterladen (vorher in geeigneten Ordner wechseln)
 
-    hg clone http://hg.code.sf.net/p/pdserv/code pdserv-code
+    git clone https://gitlab.com/etherlab.org/pdserv.git pdserv-code
 
 Installation (auf Entwickler-PC nach /usr/local/share/etherlab)
 
