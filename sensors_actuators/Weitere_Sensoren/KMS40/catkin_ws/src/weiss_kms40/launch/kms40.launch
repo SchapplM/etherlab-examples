@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+	<node pkg="weiss_kms40" type="Kms40Driver" name="kms40" output="screen" cwd="node">
+		<rosparam command="load" file="$(find weiss_kms40)/launch/config.yaml"/>
+	</node>
+</launch>
+
+
