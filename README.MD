@@ -48,35 +48,20 @@ Vorgehensweise:
   * Darin ist ein Beispiel-Code um die Messdaten nachzuverarbeiten
   * Voraussetzung: IMES Matlab Toolbox: [(interner Link)](https://gitlab.projekt.uni-hannover.de/imes-material/matlab-toolbox) bzw. [externer Link](https://github.com/SchapplM/matlab_toolbox).
 
-## Ixxat ETCio 100 <a name="bsp_ixxat"></a>
+## Beispiele zum Einbinden von Slave-Geräten
 
-Dieses Beispiel liest das EtherCAT-Slave Modul [Ixxat ETCio 100](https://www.ixxat.com/de/produkte/industrie-produkte/io-module/etcio-100) aus.
-Das Modul sollte angeschlossen sein, damit Daten ausgegeben werden können.
-Falls das Gerät nicht angeschlossen ist, kann nur geprüft werden, ob die EtherCAT-Blöcke in Simulink richtig mit kompiliert werden.
+Im Unterordner `devices` befinden sich einige Beispiele zur Einbindung von Sensor-/Aktor-Modulen als EtherCAT-Slaves.
 
-Siehe auch: BA Lucas Jürgens "Implementation and Evaluation of a Prosthesis Control Unit on a mobile ARM-based Computing Platform" (Institut für Regelungstechnik, 2017, Betreuer: Moritz Schappler)
-
-Ordner: `ixxat`  
-Vorgehensweise:
-* Ixxat-Modul anschließen (für EtherCAT vorgesehene zweite Netzwerkkarte des Echtzeitrechners).
-* Eventuell Test-Signale an die Eingänge des Moduls anschließen und Digital-Speicheroszilloskop an die Ausgänge anschließen.
-* Simulink-Modell `ETCio100_example.mdl` wie [im ersten Beispiel](#bsp_extmode) beschrieben öffnen, konfigurieren, kompilieren, starten, in external Mode verbinden, Scope anschauen.
-
-Das Modell muss im Ordner `ixxat` geladen werden.
-Die Datei `etcio100_slave.m` enthält die Konfiguration für den EtherCAT-Block im Modell. Die Slave-Konfiguration wird aus der xml-Datei automatisch erzeugt. TODO: Befehle dafür hier beispielhaft einfügen.
-
-## NI-Beispiel <a name="bsp_ni"></a>
-
-Dieses Beispiel liest ein NI DAQ-Chassis aus. Die Konfiguration ist umfangreicher als für das alleinstehende ETCio-Modul des [vorherigen Beispiels](#bsp_ixxat).
-
-Ordner: `ni`  
-
-Vorausgesetzte Hardware:
-* NI Chassis 9144 (8 Steckplätze für DA-/AD Wandler, ein EtherCAT Anschluss)
-* NI 9401 (Digital I/O Modul) im ersten Steckplatz
-
-Vorgehensweise:
-* Modell `NI9144_NI9401_example.mdl`. Ansonsten alle Schritte wie oben.
+| Name | Unterodner | Beschreibung |
+|------|------------|------------- |
+| Ixxat ETCio 100 | [ixxat](devices/ixxat/README.MD) | Stand-Alone EtherCAT-Slave mit mehreren I/O |
+| NI Chassis | [ni](devices/ni/README.MD) | NI Chassis 9144 mit I-O-Modul NI 9401 |
+| Weiss Robotics KMS 40 | [KMS40](devices/KMS40/README.MD) | Kraft-Momenten-Sensor  |
+| ATI Mini40 | [Mini40](devices/Mini40/README.MD) | Kraft-Momenten-Sensor mit NI-Messkarte PCIe-6320 |
+| Beckhoff-Klemmen | [EtherLab](devices/EtherLab/README.MD) | EL3104, EL3702, EL4102,....  |
+| EtherCAT Shield | [EtherLab](devices/EtherLab/README.MD) | EtherCAT Shield zur Einbindung einer IMU |
+| Maxon-Motorsteuerungen | [EtherLab](devices/EtherLab/README.MD) | EPOS4 |
+| Servoverstärker | [EtherLab](devices/EtherLab/README.MD) | Kollmorgen S600 Servo-Verstärker |
 
 ## Echtzeit-Schnittstelle für Anwendungen
 
